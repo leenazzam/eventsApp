@@ -1,7 +1,10 @@
 import 'package:events/core/providers/app_language_provider.dart';
 import 'package:events/core/providers/app_theme_provider.dart';
 import 'package:events/core/utils/app_theme.dart';
+import 'package:events/feature/homePage/add_event_page.dart';
 import 'package:events/feature/homePage/home_page.dart';
+import 'package:events/feature/homePage/tabs/favorite_tab.dart';
+import 'package:events/feature/login/login_page.dart';
 import 'package:events/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,8 +37,13 @@ class MainApp extends StatelessWidget {
       title: 'Localizations Sample App',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: '/',
-      routes: {'/': (context) => HomePage()},
+      initialRoute: '/login',
+      routes: {
+        '/': (context) => HomePage(),
+        '/add_event': (context) => AddEventPage(),
+        '/Favorite': (context) => FavoriteTab(),
+        '/login': (context) => LoginPage(),
+      },
     );
   }
 }

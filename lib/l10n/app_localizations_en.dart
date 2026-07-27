@@ -88,4 +88,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchForEvent => 'Search For Event';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get forgetPassword => 'Forget your password?';
+
+  @override
+  String get login => 'Login';
 }

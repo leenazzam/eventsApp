@@ -26,5 +26,9 @@
   "chooseTime": "اختر الوقت",
   "chooseEventLocation": "اختر موقع الفعالية",
   "addEvent": "إضافة فعالية",
-  "searchForEvent": "البحث عن فعالية"
+  "searchForEvent": "البحث عن فعالية",
+  "email": "البريد الإلكتروني",
+"password": "كلمة المرور",
+"forgetPassword": "نسيت كلمة المرور؟",
+"login": "تسجيل الدخول"
 }

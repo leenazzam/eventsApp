@@ -88,4 +88,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get searchForEvent => 'البحث عن فعالية';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get forgetPassword => 'نسيت كلمة المرور؟';
+
+  @override
+  String get login => 'تسجيل الدخول';
 }

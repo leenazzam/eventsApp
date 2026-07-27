@@ -25,5 +25,9 @@
   "chooseTime": "Choose Time",
   "chooseEventLocation": "Choose Event Location",
   "addEvent": "Add Event",
-  "searchForEvent": "Search For Event"
+  "searchForEvent": "Search For Event",
+  "email": "Email",
+"password": "Password",
+"forgetPassword": "Forget your password?",
+"login": "Login"
 }

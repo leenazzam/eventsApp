@@ -1,6 +1,7 @@
 import 'package:events/core/providers/app_language_provider.dart';
 import 'package:events/core/providers/app_theme_provider.dart';
 import 'package:events/core/utils/app_colors.dart';
+import 'package:events/core/widget/custom_button.dart';
 import 'package:events/core/widget/tab_event_widget.dart';
 import 'package:events/core/widget/custom_text_field.dart';
 import 'package:events/l10n/app_localizations.dart';
@@ -189,23 +190,11 @@ class _AddEventPageState extends State<AddEventPage> {
                   SizedBox(
                     width: double.infinity,
                     height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryLight,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
+                    child: CustomButton(
+                      text: AppLocalizations.of(context)!.addEvent,
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text(
-                        AppLocalizations.of(context)!.addEvent,
-                        style: TextStyle(
-                          color: AppColors.whiteColor,
-                          fontSize: 16,
-                        ),
-                      ),
                     ),
                   ),
                 ],
