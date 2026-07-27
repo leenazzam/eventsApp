@@ -100,4 +100,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get login => 'Login';
+
+  @override
+  String get requiredField => 'This field is required';
+
+  @override
+  String get chooseDateAndTime => 'Please choose date and time';
 }

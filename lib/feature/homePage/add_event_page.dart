@@ -17,6 +17,7 @@ class AddEventPage extends StatefulWidget {
 
 class _AddEventPageState extends State<AddEventPage> {
   int selectedIndex = 0;
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   DateTime? selectedDate;
@@ -39,167 +40,200 @@ class _AddEventPageState extends State<AddEventPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.all(10),
-                height: 260,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: AppColors.primaryLight, width: 2),
-                  image: DecorationImage(
-                    image: AssetImage('assets/image/birthday.png'),
-                    fit: BoxFit.fill,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  height: 260,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: AppColors.primaryLight, width: 2),
+                    image: DecorationImage(
+                      image: AssetImage('assets/image/birthday.png'),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
-              ),
-              DefaultTabController(
-                length: eventNameList.length,
-                child: TabBar(
-                  onTap: (value) {
-                    setState(() {
-                      selectedIndex = value;
-                    });
-                  },
-                  tabs: eventNameList.map((eventName) {
-                    return TabEventWidget(
-                      color: AppColors.primaryLight,
-                      selectedTextColor: AppColors.whiteColor,
-                      eventName: eventName,
-                      isSelected:
-                          selectedIndex == eventNameList.indexOf(eventName),
-                    );
-                  }).toList(),
-                  indicatorColor: AppColors.transparentColor,
-                  dividerColor: AppColors.transparentColor,
-                  isScrollable: true,
-                  labelPadding: EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 5,
+                DefaultTabController(
+                  length: eventNameList.length,
+                  child: TabBar(
+                    onTap: (value) {
+                      setState(() {
+                        selectedIndex = value;
+                      });
+                    },
+                    tabs: eventNameList.map((eventName) {
+                      return TabEventWidget(
+                        color: AppColors.primaryLight,
+                        selectedTextColor: AppColors.whiteColor,
+                        eventName: eventName,
+                        isSelected:
+                            selectedIndex == eventNameList.indexOf(eventName),
+                      );
+                    }).toList(),
+                    indicatorColor: AppColors.transparentColor,
+                    dividerColor: AppColors.transparentColor,
+                    isScrollable: true,
+                    labelPadding: EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 5,
+                    ),
+                    tabAlignment: TabAlignment.start,
                   ),
-                  tabAlignment: TabAlignment.start,
                 ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.title,
-                    style: TextStyle(color: AppColors.blackColor, fontSize: 16),
-                  ),
-                  SizedBox(height: 8),
-                  CustomTextField(
-                    prefixIcon: Icon(Icons.edit_note),
-                    controller: titleController,
-                    hintText: AppLocalizations.of(context)!.eventTitle,
-                  ),
-                  SizedBox(height: 16),
-                  CustomTextField(
-                    controller: descriptionController,
-                    hintText: AppLocalizations.of(context)!.eventDescription,
-
-                    maxLines: 4,
-                  ),
-                  const SizedBox(height: 20),
-                  InkWell(
-                    onTap: () async {
-                      final date = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(DateTime.now().year + 5),
-                      );
-                      if (date != null) setState(() => selectedDate = date);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.calendar_today,
-                              color: AppColors.blackColor,
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              AppLocalizations.of(context)!.eventDate,
-
-                              style: TextStyle(color: AppColors.blackColor),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          selectedDate == null
-                              ? AppLocalizations.of(context)!.chooseDate
-                              : '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}',
-                          style: TextStyle(color: AppColors.primaryLight),
-                        ),
-                      ],
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.title,
+                      style: TextStyle(
+                        color: AppColors.blackColor,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  InkWell(
-                    onTap: () async {
-                      final time = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                      );
-                      if (time != null) setState(() => selectedTime = time);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.access_time,
-                              color: AppColors.blackColor,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              AppLocalizations.of(context)!.eventTime,
-                              style: TextStyle(color: AppColors.blackColor),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          selectedTime == null
-                              ? AppLocalizations.of(context)!.chooseTime
-                              : selectedTime!.format(context),
-                          style: TextStyle(color: AppColors.primaryLight),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomTextField(
-                    hintText: AppLocalizations.of(context)!.chooseEventLocation,
-                    color: AppColors.primaryLight,
-                    prefixIcon: Icon(
-                      Icons.location_on_outlined,
-                      color: AppColors.primaryLight,
-                    ),
-                    suffixIcon: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 16,
-                      color: AppColors.primaryLight,
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: CustomButton(
-                      text: AppLocalizations.of(context)!.addEvent,
-                      onPressed: () {
-                        Navigator.pop(context);
+                    SizedBox(height: 8),
+                    CustomTextField(
+                      prefixIcon: Icon(Icons.edit_note),
+                      controller: titleController,
+                      hintText: AppLocalizations.of(context)!.eventTitle,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return AppLocalizations.of(context)!.requiredField;
+                        }
+                        return null;
                       },
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    SizedBox(height: 16),
+                    CustomTextField(
+                      controller: descriptionController,
+                      hintText: AppLocalizations.of(context)!.eventDescription,
+                      maxLines: 4,
+                      validator: (value) {
+                        if (value == null || value.trim().isEmpty) {
+                          return AppLocalizations.of(context)!.requiredField;
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    InkWell(
+                      onTap: () async {
+                        final date = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(DateTime.now().year + 5),
+                        );
+                        if (date != null) setState(() => selectedDate = date);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.calendar_today,
+                                color: AppColors.blackColor,
+                              ),
+                              SizedBox(width: 8),
+                              Text(
+                                AppLocalizations.of(context)!.eventDate,
+                                style: TextStyle(color: AppColors.blackColor),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            selectedDate == null
+                                ? AppLocalizations.of(context)!.chooseDate
+                                : '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}',
+                            style: TextStyle(color: AppColors.primaryLight),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    InkWell(
+                      onTap: () async {
+                        final time = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                        );
+                        if (time != null) setState(() => selectedTime = time);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.access_time,
+                                color: AppColors.blackColor,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                AppLocalizations.of(context)!.eventTime,
+                                style: TextStyle(color: AppColors.blackColor),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            selectedTime == null
+                                ? AppLocalizations.of(context)!.chooseTime
+                                : selectedTime!.format(context),
+                            style: TextStyle(color: AppColors.primaryLight),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    CustomTextField(
+                      hintText: AppLocalizations.of(
+                        context,
+                      )!.chooseEventLocation,
+                      color: AppColors.primaryLight,
+                      prefixIcon: Icon(
+                        Icons.location_on_outlined,
+                        color: AppColors.primaryLight,
+                      ),
+                      suffixIcon: Icon(
+                        Icons.arrow_forward_ios,
+                        size: 16,
+                        color: AppColors.primaryLight,
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: CustomButton(
+                        text: AppLocalizations.of(context)!.addEvent,
+                        onPressed: () {
+                          if (!_formKey.currentState!.validate()) return;
+
+                          if (selectedDate == null || selectedTime == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.chooseDateAndTime,
+                                ),
+                              ),
+                            );
+                            return;
+                          }
+
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

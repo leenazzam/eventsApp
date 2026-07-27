@@ -100,4 +100,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get login => 'تسجيل الدخول';
+
+  @override
+  String get requiredField => 'هذا الحقل مطلوب';
+
+  @override
+  String get chooseDateAndTime => 'الرجاء اختيار التاريخ والوقت';
 }

@@ -283,6 +283,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Login'**
   String get login;
+
+  /// No description provided for @requiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'This field is required'**
+  String get requiredField;
+
+  /// No description provided for @chooseDateAndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Please choose date and time'**
+  String get chooseDateAndTime;
 }
 
 class _AppLocalizationsDelegate

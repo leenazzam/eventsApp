@@ -29,5 +29,6 @@
   "email": "Email",
 "password": "Password",
 "forgetPassword": "Forget your password?",
-"login": "Login"
+"login": "Login","requiredField": "This field is required",
+"chooseDateAndTime": "Please choose date and time"
 }
