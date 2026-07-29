@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:events/core/providers/app_language_provider.dart';
 import 'package:events/core/providers/app_theme_provider.dart';
 import 'package:events/core/utils/app_colors.dart';
@@ -18,8 +19,8 @@ class AddEventPage extends StatefulWidget {
 class _AddEventPageState extends State<AddEventPage> {
   int selectedIndex = 0;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
+  var titleController = TextEditingController();
+  var descriptionController = TextEditingController();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
 
@@ -210,8 +211,10 @@ class _AddEventPageState extends State<AddEventPage> {
                       height: 50,
                       child: CustomButton(
                         text: AppLocalizations.of(context)!.addEvent,
-                        onPressed: () {
-                          if (!_formKey.currentState!.validate()) return;
+                        onPressed: () async {
+                          if (!_formKey.currentState!.validate()) {
+                            return;
+                          }
 
                           if (selectedDate == null || selectedTime == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -226,6 +229,7 @@ class _AddEventPageState extends State<AddEventPage> {
                             return;
                           }
 
+                          await addEvents();
                           Navigator.pop(context);
                         },
                       ),
@@ -238,5 +242,18 @@ class _AddEventPageState extends State<AddEventPage> {
         ),
       ),
     );
+  }
+
+  Future<void> addEvents() {
+    var events = FirebaseFirestore.instance.collection('Events');
+    return events
+        .add({
+          'title': titleController.text,
+          'description': descriptionController.text,
+          'dateTime': selectedDate!.millisecondsSinceEpoch,
+          'time': selectedTime!.format(context),
+        })
+        .then((value) => print("Event Added"))
+        .catchError((error) => print("Failed to add Event: $error"));
   }
 }
