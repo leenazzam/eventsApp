@@ -1,6 +1,4 @@
-خليه هيك مختصر ومرتب:
 
-```md
 # 🎉 Event Management App
 
 A Flutter application for creating and managing events with Firebase integration.  
