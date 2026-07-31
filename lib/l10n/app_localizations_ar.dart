@@ -106,4 +106,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chooseDateAndTime => 'الرجاء اختيار التاريخ والوقت';
+
+  @override
+  String get name => 'الاسم';
+
+  @override
+  String get repassword => 'اعادة كلمة المرور';
+
+  @override
+  String get register => 'سجل الحساب';
+
+  @override
+  String get haveaccount => 'لديك حساب ؟';
 }

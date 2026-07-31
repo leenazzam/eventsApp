@@ -30,5 +30,9 @@
 "password": "Password",
 "forgetPassword": "Forget your password?",
 "login": "Login","requiredField": "This field is required",
-"chooseDateAndTime": "Please choose date and time"
+"chooseDateAndTime": "Please choose date and time",
+"name":"Name",
+"repassword":"repassword",
+"register":"Register",
+"haveaccount":"Have Account? "
 }

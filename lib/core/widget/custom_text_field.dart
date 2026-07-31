@@ -14,9 +14,9 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.obscureText = false,
     this.maxLines = 1,
-    this.keyboardType,
     this.onChanged,
     this.validator,
+    this.keyboardType = TextInputType.text,
   });
 
   final TextEditingController? controller;
@@ -29,17 +29,17 @@ class CustomTextField extends StatelessWidget {
   Widget? suffixIcon;
   bool obscureText;
   int? maxLines;
-  final TextInputType? keyboardType;
   final ValueChanged<String>? onChanged;
   final String? Function(String?)? validator;
+  TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       validator: validator,
       controller: controller,
       obscureText: obscureText,
       maxLines: obscureText ? 1 : maxLines,
-      keyboardType: keyboardType,
       onChanged: onChanged,
       style: TextStyle(color: color ?? AppColors.blackColor),
       decoration: InputDecoration(

@@ -106,4 +106,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chooseDateAndTime => 'Please choose date and time';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get repassword => 'repassword';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get haveaccount => 'Have Account? ';
 }

@@ -32,5 +32,9 @@
 "forgetPassword": "نسيت كلمة المرور؟",
 "login": "تسجيل الدخول",
 "requiredField": "هذا الحقل مطلوب",
-"chooseDateAndTime": "الرجاء اختيار التاريخ والوقت"
+"chooseDateAndTime": "الرجاء اختيار التاريخ والوقت",
+"name":"الاسم",
+"repassword":"اعادة كلمة المرور",
+"register":"سجل الحساب",
+"haveaccount":"لديك حساب ؟"
 }

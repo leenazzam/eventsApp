@@ -295,6 +295,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please choose date and time'**
   String get chooseDateAndTime;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @repassword.
+  ///
+  /// In en, this message translates to:
+  /// **'repassword'**
+  String get repassword;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @haveaccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Have Account? '**
+  String get haveaccount;
 }
 
 class _AppLocalizationsDelegate
