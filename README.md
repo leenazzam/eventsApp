@@ -35,4 +35,3 @@ Users can add, delete, and favorite events with support for multiple languages a
 </p>
 ```
 
-مختصر، فيه وصف بسيط، ومرتب كـ GitHub README بدون زيادة.
