@@ -1,3 +1,4 @@
+import 'package:events/core/providers/app_event_provider.dart';
 import 'package:events/core/providers/app_language_provider.dart';
 import 'package:events/core/providers/app_theme_provider.dart';
 import 'package:events/core/utils/app_theme.dart';
@@ -19,6 +20,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => AppLanguageProvider()),
         ChangeNotifierProvider(create: (context) => AppThemeProvider()),
+        ChangeNotifierProvider(create: (context) => EventProvider()),
       ],
       child: MainApp(),
     ),
