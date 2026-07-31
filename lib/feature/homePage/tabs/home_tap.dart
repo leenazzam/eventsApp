@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:events/core/models/event_model.dart';
 import 'package:events/core/providers/app_language_provider.dart';
 import 'package:events/core/providers/app_theme_provider.dart';
 import 'package:events/core/utils/app_colors.dart';
+import 'package:events/core/utils/firebase_utils.dart';
 import 'package:events/core/widget/event_item_widget.dart';
 import 'package:events/core/widget/tab_event_widget.dart';
 import 'package:events/l10n/app_localizations.dart';
@@ -16,6 +19,34 @@ class HomeTap extends StatefulWidget {
 
 class _HomeTapState extends State<HomeTap> {
   int selectedIndex = 0;
+  List eventsList = [];
+  void getAllEvents() async {
+    QuerySnapshot<EventModel> query = await FirebaseUtils.getEventCollection()
+        .orderBy('dateTime')
+        .get();
+    eventsList = query.docs.map((doc) {
+      return doc.data();
+    }).toList();
+    setState(() {});
+  }
+
+  void getFilterEvent(String filterEvent) async {
+    Query<EventModel> query = await FirebaseUtils.getEventCollection();
+    if (filterEvent != 'All') {
+      query = query.where('eventCategory', isEqualTo: filterEvent);
+    }
+    var events = await query.get();
+    eventsList = events.docs.map((doc) {
+      return doc.data();
+    }).toList();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAllEvents();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +156,7 @@ class _HomeTapState extends State<HomeTap> {
                     onTap: (value) {
                       setState(() {
                         selectedIndex = value;
+                        getFilterEvent(eventNameList[value]);
                       });
                     },
                     tabs: eventNameList.map((eventName) {
@@ -150,9 +182,9 @@ class _HomeTapState extends State<HomeTap> {
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              itemCount: 10,
+              itemCount: eventsList.length,
               itemBuilder: (context, index) {
-                return EventItemWidget();
+                return EventItemWidget(event: eventsList[index]);
               },
             ),
           ),

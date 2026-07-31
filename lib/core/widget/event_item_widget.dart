@@ -1,8 +1,11 @@
+import 'package:events/core/models/event_model.dart';
 import 'package:events/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EventItemWidget extends StatelessWidget {
-  const EventItemWidget({super.key});
+  final EventModel event;
+  const EventItemWidget({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class EventItemWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    '20',
+                    event.dateTime.day.toString(),
                     style: TextStyle(
                       color: AppColors.primaryLight,
                       fontWeight: FontWeight.bold,
@@ -43,7 +46,8 @@ class EventItemWidget extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Feb',
+                    DateFormat('MMM').format(event.dateTime),
+
                     style: TextStyle(
                       color: AppColors.primaryLight,
                       fontWeight: FontWeight.bold,
@@ -63,7 +67,10 @@ class EventItemWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('data', style: TextStyle(color: AppColors.primaryLight)),
+                  Text(
+                    event.title,
+                    style: TextStyle(color: AppColors.primaryLight),
+                  ),
                   Icon(Icons.favorite_border, color: AppColors.primaryLight),
                 ],
               ),

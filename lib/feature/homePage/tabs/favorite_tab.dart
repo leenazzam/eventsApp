@@ -33,7 +33,7 @@ class _FavoriteTabState extends State<FavoriteTab> {
             child: ListView.builder(
               itemCount: 20,
               itemBuilder: (context, index) {
-                return EventItemWidget();
+                //return EventItemWidget();
               },
             ),
           ),

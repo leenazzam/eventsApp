@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
       title: 'Localizations Sample App',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      initialRoute: '/login',
+      initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
         '/add_event': (context) => AddEventPage(),

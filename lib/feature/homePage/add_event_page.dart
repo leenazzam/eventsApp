@@ -1,11 +1,16 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:events/core/models/event_model.dart';
 import 'package:events/core/providers/app_language_provider.dart';
 import 'package:events/core/providers/app_theme_provider.dart';
 import 'package:events/core/utils/app_colors.dart';
+import 'package:events/core/utils/firebase_utils.dart';
 import 'package:events/core/widget/custom_button.dart';
 import 'package:events/core/widget/tab_event_widget.dart';
 import 'package:events/core/widget/custom_text_field.dart';
 import 'package:events/l10n/app_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +28,7 @@ class _AddEventPageState extends State<AddEventPage> {
   var descriptionController = TextEditingController();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
+  String selectedCategory = '';
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +69,7 @@ class _AddEventPageState extends State<AddEventPage> {
                     onTap: (value) {
                       setState(() {
                         selectedIndex = value;
+                        selectedCategory = eventNameList[value];
                       });
                     },
                     tabs: eventNameList.map((eventName) {
@@ -244,16 +251,19 @@ class _AddEventPageState extends State<AddEventPage> {
     );
   }
 
-  Future<void> addEvents() {
-    var events = FirebaseFirestore.instance.collection('Events');
-    return events
-        .add({
-          'title': titleController.text,
-          'description': descriptionController.text,
-          'dateTime': selectedDate!.millisecondsSinceEpoch,
-          'time': selectedTime!.format(context),
-        })
-        .then((value) => print("Event Added"))
-        .catchError((error) => print("Failed to add Event: $error"));
+  Future<void> addEvents() async {
+    var event = EventModel(
+      title: titleController.text,
+      description: descriptionController.text,
+      dateTime: selectedDate!,
+      time: selectedTime!.format(context),
+      eventCategory: selectedCategory,
+    );
+    try {
+      await FirebaseUtils.addEventsToFirebaseStore(event);
+      log('event added');
+    } catch (e) {
+      log('error adding event:$e');
+    }
   }
 }
